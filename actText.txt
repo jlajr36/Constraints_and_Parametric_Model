@@ -1,0 +1,22 @@
+Diameter = minDiameter:stepDSize:maxDiameter;
+Height = minHeight:stepHSize:maxHeight;
+
+% pair = combinations(Height, Diameter);
+[n,m] = ndgrid(Height, Diameter);
+pair = [n(:),m(:)];
+
+i=1;
+pairN = length(pair)/2;
+Volume = zeros(pairN,1);
+
+hi = pair(i,1);
+di = pair(i+pairN,1);
+
+sim("calcCylinderVolume");
+
+Volume(i) = ans.Volume.Data
+
+i = i + 1;
+
+plot3(pair(1:pairN,1), pair(pairN+1:end,1),Volume(:),'.','MarkerSize',24);
+xlabel("Height"); ylabel("Diameter"); zlabel("Volume");
